@@ -1,9 +1,9 @@
 <?php
-class Companies{
+class Countries{
   
     // database connection and table name
     private $conn;
-    private $table_name = "companies";
+    private $table_name = "countries";
   
     // object properties
     public $id;

@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // include database and object files
 include_once '../../config/Database.php';
-include_once '../../models/companies.php';
+include_once '../../models/countries.php';
 include_once '../../config/Response.php';
   
 // instantiate database and product object
@@ -14,19 +14,19 @@ $database = new Database();
 $db = $database->getConnection();
   
 // initialize object
-$companies = new Companies($db);
+$countries = new Countries($db);
 
 // query products
-$stmt = $companies->get();
+$stmt = $countries->get();
 $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
   
     // products array
-    $compenies_arr=array();
-    $compenies_arr["responseCode"]= '100';
-    $compenies_arr["responseMessage"]= 'Success';
-    $compenies_arr["data"]=array();
+    $countries_arr=array();
+    $countries_arr["responseCode"]= '100';
+    $countries_arr["responseMessage"]= 'Success';
+    $countries_arr["data"]=array();
   
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -39,19 +39,17 @@ if($num>0){
   
         $product_item= array(
             "id" => $id,
-            "code" => $name,
-            "from" => $plag
+            "name" => $name,
+            "plag" => $plag
         );
-        
-
-        array_push($compenies_arr["data"], $product_item);
+        array_push($countries_arr["data"], $product_item);
     }
   
     // set response code - 200 OK
     http_response_code(200);
   
     // show products data in json format
-    echo json_encode($compenies_arr);
+    echo json_encode($countries_arr);
 
 }
 else{
